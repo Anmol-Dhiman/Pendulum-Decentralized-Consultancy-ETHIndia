@@ -14,7 +14,7 @@ contract PendulumFactory {
     mapping(address => bool) public isExpert;
     mapping(address => ExpertProfile) public experts;
     address public chainlinkDataFeed;
-    mapping(address => address[]) public orbsOwned;
+    mapping(address => address[]) public orbsOwnedByUser;
     address[] public orbs;
     mapping(address => bool) public isOrb;
 
@@ -66,11 +66,12 @@ contract PendulumFactory {
             msg.sender
         );
         isOrb[address(_newOrb)] = true;
+        experts[msg.sender].orbsOwned.push(address(_newOrb));
     }
 
     function updateOrbsOwned(address _orb, address _owner) external {
         require(isOrb[msg.sender], "only orb can access this function");
-        orbsOwned[_owner].push(_orb);
+        orbsOwnedByUser[_owner].push(_orb);
     }
 
     function getExpertProfile(
@@ -97,5 +98,9 @@ contract PendulumFactory {
             }
         }
         return upcomingOrbs;
+    }
+
+    function getExpertOwnedOrbs() external view returns (address[] memory) {
+        return experts[msg.sender].orbsOwned;
     }
 }

@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   80001: {
     PendulumFactory: {
-      address: "0x059af9cE6e7a19075Bf950AE17a55CeE0ba138d4",
+      address: "0x8f917c7162154f7EE0a69B0D8eA03A1815d8F4a5",
       abi: [
         {
           inputs: [
@@ -101,6 +101,19 @@ const deployedContracts = {
         {
           inputs: [],
           name: "getAliveUpcomingOrbs",
+          outputs: [
+            {
+              internalType: "address[]",
+              name: "",
+              type: "address[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getExpertOwnedOrbs",
           outputs: [
             {
               internalType: "address[]",
@@ -217,7 +230,7 @@ const deployedContracts = {
               type: "uint256",
             },
           ],
-          name: "orbsOwned",
+          name: "orbsOwnedByUser",
           outputs: [
             {
               internalType: "address",

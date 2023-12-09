@@ -9,13 +9,16 @@ import type { NextPage } from "next";
 import Link from "next/link";
 import { GrAdd } from "react-icons/gr";
 
+import OrbABI from "../../../foundry/out/PendulumOrb.sol/PendulumOrb.json"
 
 const Profile: NextPage = () => {
 
 
   const account = useAccount();
+  const [orbsCreated, setOrbsCreated] = useState<any>([])
+  const [orbAddress, setOrbAddress] = useState([])
   // const [isExpert, setIsExpert] = useState(true);
-  // const { data: pendulumContract } = useDeployedContractInfo("Pendulum");
+  const { data: pendulumContract } = useDeployedContractInfo("PendulumFactory");
 
   const { data: isExpert } = useScaffoldContractRead({
     contractName: "PendulumFactory",
@@ -25,6 +28,51 @@ const Profile: NextPage = () => {
   });
 
 
+  useEffect(() => {
+    // here we have to fetch orbs owned 
+    const getOrbsCreated = async () => {
+      try {
+        if (!isExpert) return
+        if (account.address === undefined) return
+        const createdOrbsArray = await readContract({
+          address: pendulumContract?.address!,
+          abi: pendulumContract?.abi!,
+          functionName: 'getExpertOwnedOrbs',
+          account: account.address
+        })
+        console.log(JSON.stringify(createdOrbsArray))
+        setOrbAddress(createdOrbsArray)
+        const _orbDetails: any[] = []
+        for (var i = 0; i < createdOrbsArray.length; i++) {
+          const orbData = await readContract({
+            address: createdOrbsArray[i],
+            abi: OrbABI.abi,
+            functionName: 'getOrbDetails',
+            account: account.address
+          })
+          console.log(orbData)
+          _orbDetails.push(orbData)
+        }
+
+        setOrbsCreated(_orbDetails)
+
+
+
+      } catch (e) { console.log(e) }
+
+    }
+    getOrbsCreated()
+  }, [isExpert])
+
+
+
+  function unixToDateString(unixTime: number): string {
+    if (typeof unixTime !== 'number') {
+      throw new Error('Invalid input: Unix timestamp must be a number');
+    }
+    const date = new Date(unixTime * 1000);
+    return date.toISOString().split('T')[0]; // Extract date portion from ISO string
+  }
 
   // useEffect(() => {
   //   // fetch that user have exper profile or not 
@@ -56,19 +104,64 @@ const Profile: NextPage = () => {
   const OrbList = ({ heading, orbList }: { heading: string, orbList: any[] }) => {
     return (
       <div className="mb-12" >
-        <div className=" font-bold text-2xl  " >{heading}</div>
+        <div className=" font-bold text-2xl mb-2 " >{heading}</div>
         {
           orbList.length === 0 ? <div className=" font-normal text-4xl text-[#bfc7c1]  " >N/A</div> :
-            orbList.map((value, index) => {
-              return (
-                <div key={index} >
-                  hello world
-                </div>
-              )
-            })
+            <div className="grid grid-cols-3  " >
+              {
+                orbList.map((value, index) => {
+                  return (
+                    <>
+                      <div key={index} className="rounded-lg px-4 pb-4   bg-slate-300"  >
+
+                        <div className="flex flex-row justify-between  " >
+                          <p>Created At</p>
+                          <p>{unixToDateString(value.createdAt)}</p>
+                        </div>
+                        <div className="flex flex-row justify-between  " >
+                          <p>Auction At</p>
+                          <p>{unixToDateString(Number(value.auctionTime))}</p>
+                        </div>
+                        <div className="flex flex-row justify-between  " >
+                          <p>Base Price</p>
+                          <p>{Number(value.priceInUSD)}</p>
+                        </div>
+                        <div className="flex flex-row justify-between  " >
+                          <p>Cool Down Time</p>
+                          <p>{Number(value.coolDownTime) / (60 * 60 * 24)}</p>
+                        </div>
+                        <div className="flex flex-row justify-between  " >
+                          <p>Tax Rate</p>
+                          <p>{Number(value.taxRate)}</p>
+                        </div>
+                        <div className="flex flex-row justify-between  " >
+                          <p>Owned By</p>
+                          <p>{Number(value.owner) === 0 ? "N/A" : String(value.owner)}</p>
+                        </div>
+
+
+                        {
+                          Number(value.owner) === 0 &&
+                          < div className="mb-4 text-white bg-[#0e76fd] w-[100%] rounded-lg py-2 px-2  text-center   font-bold "  >
+                            {/* /${value.auctionTime}/${value.priceInUSD}/${value.coolDownTime}/${value.taxRate} */}
+                            <Link href={`/profile/orb/${orbAddress[index]}/${value.auctionTime}/${value.priceInUSD}/${value.coolDownTime}/${value.taxRate}`}   >Update ORB</Link>
+                          </div>
+                        }
+
+
+
+
+
+                      </div>
+
+                    </>
+                  )
+                })
+              }
+            </div>
         }
 
-      </div>
+      </div >
     )
   }
 
@@ -118,7 +211,7 @@ const Profile: NextPage = () => {
 
 
       <OrbList heading="ORBs Owned" orbList={[]} />
-      <OrbList heading="ORBs Created" orbList={[]} />
+      <OrbList heading="ORBs Created" orbList={orbsCreated} />
 
 
 

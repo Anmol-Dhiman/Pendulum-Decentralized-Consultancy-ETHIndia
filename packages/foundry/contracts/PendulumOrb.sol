@@ -32,6 +32,26 @@ contract PendulumOrb {
     AggregatorV3Interface internal dataFeed;
     uint256 public amountPaidForOrb;
 
+    struct OrbDetails {
+        address createBy;
+        uint256 auctionTime;
+        uint256 priceInUSD;
+        uint256 coolDownTime;
+        uint32 createdAt;
+        uint256 taxRate;
+        uint32[12] taxPaymentTime;
+        uint256 resellingPrice;
+        string[] questionAnswer;
+        uint256 orbRating;
+        uint32 lastQuestionTime;
+        bool isAlive;
+        uint8 noOfTimesTaxPaid;
+        uint256 questionCount;
+        uint256 answerCount;
+        uint256 amountPaidForOrb;
+        address owner;
+    }
+
     constructor(address _factoryContract, address _datafeed) {
         factoryContract = _factoryContract;
         dataFeed = AggregatorV3Interface(_datafeed);
@@ -53,12 +73,26 @@ contract PendulumOrb {
         taxRate = _taxRate;
         lastQuestionTime = uint32(block.timestamp);
         createdAt = uint32(block.timestamp);
-
+        uint256 diff = _auctionTime - block.timestamp;
         for (uint32 i = 1; i < 13; i++) {
             taxPaymentTime[i - 1] =
                 (i * taxPaymentCycleTime) +
-                uint32(block.timestamp);
+                uint32(block.timestamp) +
+                uint32(diff);
         }
+    }
+
+    function updateOrb(
+        uint256 _auctionTime,
+        uint256 _priceInUSD,
+        uint256 _coolDownTime,
+        uint256 _taxRate
+    ) external {
+        require(msg.sender == createBy, "you cannot access this function");
+        auctionTime = _auctionTime;
+        priceInUSD = _priceInUSD;
+        coolDownTime = _coolDownTime;
+        taxRate = _taxRate;
     }
 
     function buyOrb(uint256 _resellingPrice) external payable {
@@ -146,5 +180,28 @@ contract PendulumOrb {
         } else {
             revert("conditions does not met for refunding");
         }
+    }
+
+    function getOrbDetails() external view returns (OrbDetails memory) {
+        OrbDetails memory _orbDetails = OrbDetails(
+            createBy,
+            auctionTime,
+            priceInUSD,
+            coolDownTime,
+            createdAt,
+            taxRate,
+            taxPaymentTime,
+            resellingPrice,
+            questionAnswer,
+            orbRating,
+            lastQuestionTime,
+            isAlive,
+            noOfTimesTaxPaid,
+            questionCount,
+            answerCount,
+            amountPaidForOrb,
+            owner
+        );
+        return _orbDetails;
     }
 }
