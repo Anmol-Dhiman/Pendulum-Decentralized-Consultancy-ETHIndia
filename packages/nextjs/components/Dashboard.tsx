@@ -38,11 +38,11 @@ const Dashboard = () => {
               <p>1 month</p>
             </div>
             <div className="flex justify-between">
-              <p>TransactionRate</p>
+              <p>Harberger Tax</p>
               <p> 180%</p>
             </div>
             <div className="flex justify-between">
-              <p>Bidding Price</p>
+              <p>Auction Base Price</p>
               <p>0.15 ETH</p>
             </div>
             <div className="flex justify-between">
