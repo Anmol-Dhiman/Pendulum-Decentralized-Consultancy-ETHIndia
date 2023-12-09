@@ -56,7 +56,9 @@ contract Pendulum is OrbNFTMarket {
         _;
     }
 
-    function createProfile(string memory _profileDetailsCID) external {
+    function createProfile(
+        string memory _profileDetailsCID
+    ) external notExpert {
         uint256[] memory _emptyOrbId;
         ExpertProfile memory _expertProfile = ExpertProfile(
             _profileDetailsCID,
@@ -65,6 +67,12 @@ contract Pendulum is OrbNFTMarket {
         );
         experts[msg.sender] = _expertProfile;
         isExpert[msg.sender] = true;
+    }
+
+    function updateProfile(
+        string memory _profileDetailsCID
+    ) external onlyExpert {
+        experts[msg.sender].detailsCID = _profileDetailsCID;
     }
 
     // only expert can create an orb

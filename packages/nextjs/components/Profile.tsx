@@ -3,24 +3,10 @@
 import React from "react";
 import Link from "next/link";
 import Form from "./Form";
-// import {
-//   Button,
-//   FormControl,
-//   FormLabel,
-//   Input,
-//   Modal,
-//   ModalBody,
-//   ModalCloseButton,
-//   ModalContent,
-//   ModalFooter,
-//   ModalHeader,
-//   ModalOverlay,
-//   useDisclosure,
-// } from "@chakra-ui/react";
+
 import { FaRegCircleUser } from "react-icons/fa6";
 
 const Profile = () => {
-  //   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
@@ -60,39 +46,7 @@ const Profile = () => {
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         </Link>
-        {/* <Modal initialFocusRef={initialRef} finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose}>
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader>Create your ORB</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody pb={6}>
-              <FormControl>
-                <FormLabel>Name</FormLabel>
-                <Input ref={initialRef} placeholder="Name" />
-              </FormControl>
 
-              <FormControl mt={4}>
-                <FormLabel>Price</FormLabel>
-                <Input placeholder="Last name" />
-              </FormControl>
-              <FormControl mt={4}>
-                <FormLabel>Slots</FormLabel>
-                <Input placeholder="Slot" />
-              </FormControl>
-              <FormControl mt={4}>
-                <FormLabel>Transaction Rate</FormLabel>
-                <Input placeholder="Last name" />
-              </FormControl>
-            </ModalBody>
-
-            <ModalFooter>
-              <Button colorScheme="blue" mr={3}>
-                Save
-              </Button>
-              <Button onClick={onClose}>Cancel</Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal> */}
       </div>
     </div>
   );
