@@ -18,7 +18,7 @@ const UpdateExpertProfile: NextPage = () => {
     const [name, setName] = useState("")
     const [twitter, setTwitter] = useState("")
     const [loading, setLoading] = useState(false)
-    const { data: pendulumContract } = useDeployedContractInfo("Pendulum")
+    const { data: pendulumContract } = useDeployedContractInfo("PendulumFactory")
 
     function handleChange(e: any) {
         setFileURL(window.URL.createObjectURL(e.target.files[0]));
@@ -81,7 +81,7 @@ const UpdateExpertProfile: NextPage = () => {
 
     const account = useAccount()
     const { data: expertProfile } = useScaffoldContractRead({
-        contractName: "Pendulum",
+        contractName: "PendulumFactory",
         functionName: "getExpertProfile",
         args: [account.address],
         account: account.address

@@ -4,6 +4,7 @@ pragma solidity ^0.8.19;
 import "../contracts/YourContract.sol";
 import "./DeployHelpers.s.sol";
 import {Pendulum} from "../contracts/Pendulum.sol";
+import {PendulumFactory} from "../contracts/PendulumFactory.sol";
 
 contract DeployScript is ScaffoldETHDeploy {
     error InvalidPrivateKey(string);
@@ -17,12 +18,12 @@ contract DeployScript is ScaffoldETHDeploy {
         }
         vm.startBroadcast(deployerPrivateKey);
         // matci to usd chainlink contract
-        Pendulum pendulum = new Pendulum(
+        PendulumFactory pendulum = new PendulumFactory(
             0xd0D5e3DB44DE05E9F294BB0a3bEEaF030DE24Ada
         );
         console.logString(
             string.concat(
-                "Pendulum contract deployed at: ",
+                "PendulumFactory contract deployed at: ",
                 vm.toString(address(pendulum))
             )
         );
