@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 // import Profile from "~~/components/Profile";
@@ -16,7 +18,7 @@ const Profile: NextPage = () => {
   // const { data: pendulumContract } = useDeployedContractInfo("Pendulum");
 
   const { data: isExpert } = useScaffoldContractRead({
-    contractName: "Pendulum",
+    contractName: "PendulumFactory",
     functionName: "isExpert",
     args: [account.address],
     account: account.address
@@ -70,6 +72,19 @@ const Profile: NextPage = () => {
     )
   }
 
+  if (!account.isConnected) {
+    return (
+      <div className="container ">
+
+        {
+          !account.isConnected &&
+          <div className=' font-semibold text-2xl  text-center mt-12 '  >
+            Connect Your Wallet First
+          </div>
+        }
+      </div>
+    )
+  }
 
   return (
     <div className="container ">

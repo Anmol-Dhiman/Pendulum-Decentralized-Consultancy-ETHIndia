@@ -49,6 +49,10 @@ p {
   @apply text-white bg-[#0e76fd] rounded-lg mt-12 py-3 font-bold
 }
 
+.info-header {
+  @apply text-xs text-gray-500
+}
+
 .form-button:hover {
   transform: scale(1.009);
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);

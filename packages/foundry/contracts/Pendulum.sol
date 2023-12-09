@@ -5,6 +5,8 @@ pragma solidity ^0.8.20;
 import {AggregatorV3Interface} from "./interface/AggregatorV3Interface.sol";
 import {OrbNFTMarket} from "./OrbNFTMarket.sol";
 
+// getting stack full error in this contract
+
 contract Pendulum is OrbNFTMarket {
     // 30 days
     uint32 immutable taxPaymentCycleTime = 2592000;

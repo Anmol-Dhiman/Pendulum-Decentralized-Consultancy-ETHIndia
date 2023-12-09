@@ -6,14 +6,14 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 
 const deployedContracts = {
   80001: {
-    Pendulum: {
-      address: "0x827eDEe4501B85E483904d9657Ef5bB47A723EEF",
+    PendulumFactory: {
+      address: "0x059af9cE6e7a19075Bf950AE17a55CeE0ba138d4",
       abi: [
         {
           inputs: [
             {
               internalType: "address",
-              name: "_chainlinkDataFeedAddress",
+              name: "_dataFeed",
               type: "address",
             },
           ],
@@ -21,309 +21,16 @@ const deployedContracts = {
           type: "constructor",
         },
         {
-          inputs: [
-            {
-              internalType: "address",
-              name: "sender",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "tokenId",
-              type: "uint256",
-            },
-            {
-              internalType: "address",
-              name: "owner",
-              type: "address",
-            },
-          ],
-          name: "ERC721IncorrectOwner",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "operator",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "tokenId",
-              type: "uint256",
-            },
-          ],
-          name: "ERC721InsufficientApproval",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "approver",
-              type: "address",
-            },
-          ],
-          name: "ERC721InvalidApprover",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "operator",
-              type: "address",
-            },
-          ],
-          name: "ERC721InvalidOperator",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "owner",
-              type: "address",
-            },
-          ],
-          name: "ERC721InvalidOwner",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "receiver",
-              type: "address",
-            },
-          ],
-          name: "ERC721InvalidReceiver",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "sender",
-              type: "address",
-            },
-          ],
-          name: "ERC721InvalidSender",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "tokenId",
-              type: "uint256",
-            },
-          ],
-          name: "ERC721NonexistentToken",
-          type: "error",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: true,
-              internalType: "address",
-              name: "owner",
-              type: "address",
-            },
-            {
-              indexed: true,
-              internalType: "address",
-              name: "approved",
-              type: "address",
-            },
-            {
-              indexed: true,
-              internalType: "uint256",
-              name: "tokenId",
-              type: "uint256",
-            },
-          ],
-          name: "Approval",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: true,
-              internalType: "address",
-              name: "owner",
-              type: "address",
-            },
-            {
-              indexed: true,
-              internalType: "address",
-              name: "operator",
-              type: "address",
-            },
-            {
-              indexed: false,
-              internalType: "bool",
-              name: "approved",
-              type: "bool",
-            },
-          ],
-          name: "ApprovalForAll",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "_fromTokenId",
-              type: "uint256",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "_toTokenId",
-              type: "uint256",
-            },
-          ],
-          name: "BatchMetadataUpdate",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "_tokenId",
-              type: "uint256",
-            },
-          ],
-          name: "MetadataUpdate",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: true,
-              internalType: "address",
-              name: "from",
-              type: "address",
-            },
-            {
-              indexed: true,
-              internalType: "address",
-              name: "to",
-              type: "address",
-            },
-            {
-              indexed: true,
-              internalType: "uint256",
-              name: "tokenId",
-              type: "uint256",
-            },
-          ],
-          name: "Transfer",
-          type: "event",
-        },
-        {
-          inputs: [
-            {
-              internalType: "string",
-              name: "_questionAndAnswerCID",
-              type: "string",
-            },
-            {
-              internalType: "uint256",
-              name: "_orbId",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_questionId",
-              type: "uint256",
-            },
-          ],
-          name: "answerQuestion",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "to",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "tokenId",
-              type: "uint256",
-            },
-          ],
-          name: "approve",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "string",
-              name: "_questionCID",
-              type: "string",
-            },
-            {
-              internalType: "uint256",
-              name: "_orbId",
-              type: "uint256",
-            },
-          ],
-          name: "askQuestion",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "owner",
-              type: "address",
-            },
-          ],
-          name: "balanceOf",
+          inputs: [],
+          name: "chainlinkDataFeed",
           outputs: [
             {
-              internalType: "uint256",
+              internalType: "address",
               name: "",
-              type: "uint256",
+              type: "address",
             },
           ],
           stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "_orbId",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_resellingPrice",
-              type: "uint256",
-            },
-          ],
-          name: "buyOrb",
-          outputs: [],
-          stateMutability: "payable",
           type: "function",
         },
         {
@@ -393,194 +100,12 @@ const deployedContracts = {
         },
         {
           inputs: [],
-          name: "getAllOrbs",
+          name: "getAliveUpcomingOrbs",
           outputs: [
             {
-              components: [
-                {
-                  internalType: "address",
-                  name: "createBy",
-                  type: "address",
-                },
-                {
-                  internalType: "address",
-                  name: "owner",
-                  type: "address",
-                },
-                {
-                  internalType: "uint256",
-                  name: "auctionTime",
-                  type: "uint256",
-                },
-                {
-                  internalType: "uint256",
-                  name: "priceInUSD",
-                  type: "uint256",
-                },
-                {
-                  internalType: "uint256",
-                  name: "coolDownTime",
-                  type: "uint256",
-                },
-                {
-                  internalType: "uint256",
-                  name: "resellingPrice",
-                  type: "uint256",
-                },
-                {
-                  internalType: "string[]",
-                  name: "questionAnswer",
-                  type: "string[]",
-                },
-                {
-                  internalType: "uint256",
-                  name: "taxRate",
-                  type: "uint256",
-                },
-                {
-                  internalType: "uint256",
-                  name: "orbRating",
-                  type: "uint256",
-                },
-                {
-                  internalType: "uint32",
-                  name: "lastQuestionTime",
-                  type: "uint32",
-                },
-                {
-                  internalType: "uint32",
-                  name: "createdAt",
-                  type: "uint32",
-                },
-                {
-                  internalType: "bool",
-                  name: "isAlive",
-                  type: "bool",
-                },
-                {
-                  internalType: "uint32[11]",
-                  name: "taxPaymentTime",
-                  type: "uint32[11]",
-                },
-                {
-                  internalType: "uint8",
-                  name: "noOfTimesTaxPaid",
-                  type: "uint8",
-                },
-              ],
-              internalType: "struct Pendulum.Orb[]",
+              internalType: "address[]",
               name: "",
-              type: "tuple[]",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "tokenId",
-              type: "uint256",
-            },
-          ],
-          name: "getApproved",
-          outputs: [
-            {
-              internalType: "address",
-              name: "",
-              type: "address",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "_expert",
-              type: "address",
-            },
-          ],
-          name: "getExpertOrbs",
-          outputs: [
-            {
-              components: [
-                {
-                  internalType: "address",
-                  name: "createBy",
-                  type: "address",
-                },
-                {
-                  internalType: "address",
-                  name: "owner",
-                  type: "address",
-                },
-                {
-                  internalType: "uint256",
-                  name: "auctionTime",
-                  type: "uint256",
-                },
-                {
-                  internalType: "uint256",
-                  name: "priceInUSD",
-                  type: "uint256",
-                },
-                {
-                  internalType: "uint256",
-                  name: "coolDownTime",
-                  type: "uint256",
-                },
-                {
-                  internalType: "uint256",
-                  name: "resellingPrice",
-                  type: "uint256",
-                },
-                {
-                  internalType: "string[]",
-                  name: "questionAnswer",
-                  type: "string[]",
-                },
-                {
-                  internalType: "uint256",
-                  name: "taxRate",
-                  type: "uint256",
-                },
-                {
-                  internalType: "uint256",
-                  name: "orbRating",
-                  type: "uint256",
-                },
-                {
-                  internalType: "uint32",
-                  name: "lastQuestionTime",
-                  type: "uint32",
-                },
-                {
-                  internalType: "uint32",
-                  name: "createdAt",
-                  type: "uint32",
-                },
-                {
-                  internalType: "bool",
-                  name: "isAlive",
-                  type: "bool",
-                },
-                {
-                  internalType: "uint32[11]",
-                  name: "taxPaymentTime",
-                  type: "uint32[11]",
-                },
-                {
-                  internalType: "uint8",
-                  name: "noOfTimesTaxPaid",
-                  type: "uint8",
-                },
-              ],
-              internalType: "struct Pendulum.Orb[]",
-              name: "",
-              type: "tuple[]",
+              type: "address[]",
             },
           ],
           stateMutability: "view",
@@ -609,129 +134,14 @@ const deployedContracts = {
                   type: "uint256",
                 },
                 {
-                  internalType: "uint256[]",
-                  name: "orbIds",
-                  type: "uint256[]",
+                  internalType: "address[]",
+                  name: "orbsOwned",
+                  type: "address[]",
                 },
               ],
-              internalType: "struct Pendulum.ExpertProfile",
+              internalType: "struct PendulumFactory.ExpertProfile",
               name: "",
               type: "tuple",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "_user",
-              type: "address",
-            },
-          ],
-          name: "getUserOrbs",
-          outputs: [
-            {
-              components: [
-                {
-                  internalType: "address",
-                  name: "createBy",
-                  type: "address",
-                },
-                {
-                  internalType: "address",
-                  name: "owner",
-                  type: "address",
-                },
-                {
-                  internalType: "uint256",
-                  name: "auctionTime",
-                  type: "uint256",
-                },
-                {
-                  internalType: "uint256",
-                  name: "priceInUSD",
-                  type: "uint256",
-                },
-                {
-                  internalType: "uint256",
-                  name: "coolDownTime",
-                  type: "uint256",
-                },
-                {
-                  internalType: "uint256",
-                  name: "resellingPrice",
-                  type: "uint256",
-                },
-                {
-                  internalType: "string[]",
-                  name: "questionAnswer",
-                  type: "string[]",
-                },
-                {
-                  internalType: "uint256",
-                  name: "taxRate",
-                  type: "uint256",
-                },
-                {
-                  internalType: "uint256",
-                  name: "orbRating",
-                  type: "uint256",
-                },
-                {
-                  internalType: "uint32",
-                  name: "lastQuestionTime",
-                  type: "uint32",
-                },
-                {
-                  internalType: "uint32",
-                  name: "createdAt",
-                  type: "uint32",
-                },
-                {
-                  internalType: "bool",
-                  name: "isAlive",
-                  type: "bool",
-                },
-                {
-                  internalType: "uint32[11]",
-                  name: "taxPaymentTime",
-                  type: "uint32[11]",
-                },
-                {
-                  internalType: "uint8",
-                  name: "noOfTimesTaxPaid",
-                  type: "uint8",
-                },
-              ],
-              internalType: "struct Pendulum.Orb[]",
-              name: "",
-              type: "tuple[]",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "owner",
-              type: "address",
-            },
-            {
-              internalType: "address",
-              name: "operator",
-              type: "address",
-            },
-          ],
-          name: "isApprovedForAll",
-          outputs: [
-            {
-              internalType: "bool",
-              name: "",
-              type: "bool",
             },
           ],
           stateMutability: "view",
@@ -759,86 +169,17 @@ const deployedContracts = {
         {
           inputs: [
             {
-              internalType: "uint256",
-              name: "_tokenId",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_viewPrice",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_sellingPrice",
-              type: "uint256",
-            },
-          ],
-          name: "listNFT",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
+              internalType: "address",
               name: "",
-              type: "uint256",
+              type: "address",
             },
           ],
-          name: "listedNFTs",
+          name: "isOrb",
           outputs: [
             {
-              internalType: "uint256",
-              name: "tokenId",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "orbId",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "viewPrice",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "sellingPrice",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "_orbId",
-              type: "uint256",
-            },
-            {
-              internalType: "string",
-              name: "_tokenURI",
-              type: "string",
-            },
-          ],
-          name: "mintNFTForOrb",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "name",
-          outputs: [
-            {
-              internalType: "string",
+              internalType: "bool",
               name: "",
-              type: "string",
+              type: "bool",
             },
           ],
           stateMutability: "view",
@@ -856,63 +197,8 @@ const deployedContracts = {
           outputs: [
             {
               internalType: "address",
-              name: "createBy",
+              name: "",
               type: "address",
-            },
-            {
-              internalType: "address",
-              name: "owner",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "auctionTime",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "priceInUSD",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "coolDownTime",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "resellingPrice",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "taxRate",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "orbRating",
-              type: "uint256",
-            },
-            {
-              internalType: "uint32",
-              name: "lastQuestionTime",
-              type: "uint32",
-            },
-            {
-              internalType: "uint32",
-              name: "createdAt",
-              type: "uint32",
-            },
-            {
-              internalType: "bool",
-              name: "isAlive",
-              type: "bool",
-            },
-            {
-              internalType: "uint8",
-              name: "noOfTimesTaxPaid",
-              type: "uint8",
             },
           ],
           stateMutability: "view",
@@ -934,25 +220,6 @@ const deployedContracts = {
           name: "orbsOwned",
           outputs: [
             {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "tokenId",
-              type: "uint256",
-            },
-          ],
-          name: "ownerOf",
-          outputs: [
-            {
               internalType: "address",
               name: "",
               type: "address",
@@ -964,229 +231,17 @@ const deployedContracts = {
         {
           inputs: [
             {
-              internalType: "uint256",
-              name: "_orbId",
-              type: "uint256",
-            },
-          ],
-          name: "payTax",
-          outputs: [],
-          stateMutability: "payable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "_orbId",
-              type: "uint256",
-            },
-            {
-              internalType: "uint8",
-              name: "_rating",
-              type: "uint8",
-            },
-          ],
-          name: "rateOrb",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-            {
               internalType: "address",
-              name: "",
-              type: "address",
-            },
-          ],
-          name: "rightToSeeNFT",
-          outputs: [
-            {
-              internalType: "bool",
-              name: "",
-              type: "bool",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "from",
+              name: "_orb",
               type: "address",
             },
             {
               internalType: "address",
-              name: "to",
+              name: "_owner",
               type: "address",
             },
-            {
-              internalType: "uint256",
-              name: "tokenId",
-              type: "uint256",
-            },
           ],
-          name: "safeTransferFrom",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "from",
-              type: "address",
-            },
-            {
-              internalType: "address",
-              name: "to",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "tokenId",
-              type: "uint256",
-            },
-            {
-              internalType: "bytes",
-              name: "data",
-              type: "bytes",
-            },
-          ],
-          name: "safeTransferFrom",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "operator",
-              type: "address",
-            },
-            {
-              internalType: "bool",
-              name: "approved",
-              type: "bool",
-            },
-          ],
-          name: "setApprovalForAll",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "bytes4",
-              name: "interfaceId",
-              type: "bytes4",
-            },
-          ],
-          name: "supportsInterface",
-          outputs: [
-            {
-              internalType: "bool",
-              name: "",
-              type: "bool",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "symbol",
-          outputs: [
-            {
-              internalType: "string",
-              name: "",
-              type: "string",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "tokenCount",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          name: "tokenIdToOrbId",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "tokenId",
-              type: "uint256",
-            },
-          ],
-          name: "tokenURI",
-          outputs: [
-            {
-              internalType: "string",
-              name: "",
-              type: "string",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "from",
-              type: "address",
-            },
-            {
-              internalType: "address",
-              name: "to",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "tokenId",
-              type: "uint256",
-            },
-          ],
-          name: "transferFrom",
+          name: "updateOrbsOwned",
           outputs: [],
           stateMutability: "nonpayable",
           type: "function",
@@ -1204,51 +259,8 @@ const deployedContracts = {
           stateMutability: "nonpayable",
           type: "function",
         },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          name: "userListedNFTs",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
       ],
-      inheritedFunctions: {
-        approve: "contracts/OrbNFTMarket.sol",
-        balanceOf: "contracts/OrbNFTMarket.sol",
-        getApproved: "contracts/OrbNFTMarket.sol",
-        isApprovedForAll: "contracts/OrbNFTMarket.sol",
-        listNFT: "contracts/OrbNFTMarket.sol",
-        listedNFTs: "contracts/OrbNFTMarket.sol",
-        name: "contracts/OrbNFTMarket.sol",
-        ownerOf: "contracts/OrbNFTMarket.sol",
-        rightToSeeNFT: "contracts/OrbNFTMarket.sol",
-        safeTransferFrom: "contracts/OrbNFTMarket.sol",
-        setApprovalForAll: "contracts/OrbNFTMarket.sol",
-        supportsInterface: "contracts/OrbNFTMarket.sol",
-        symbol: "contracts/OrbNFTMarket.sol",
-        tokenCount: "contracts/OrbNFTMarket.sol",
-        tokenIdToOrbId: "contracts/OrbNFTMarket.sol",
-        tokenURI: "contracts/OrbNFTMarket.sol",
-        transferFrom: "contracts/OrbNFTMarket.sol",
-        userListedNFTs: "contracts/OrbNFTMarket.sol",
-      },
+      inheritedFunctions: {},
     },
   },
 } as const;

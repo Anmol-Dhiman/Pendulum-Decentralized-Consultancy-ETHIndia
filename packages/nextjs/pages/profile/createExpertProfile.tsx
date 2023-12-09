@@ -18,7 +18,7 @@ const CreateExpertProfile: NextPage = () => {
     const [twitter, setTwitter] = useState("")
     const [loading, setLoading] = useState(false)
     const [profileData, setProfileData] = useState("")
-    const { data: pendulumContract } = useDeployedContractInfo("Pendulum")
+    const { data: pendulumContract } = useDeployedContractInfo("PendulumFactory")
     const account = useAccount()
     // const { writeAsync: createExpProfile } = useScaffoldContractWrite({
     //     contractName: "Pendulum",
