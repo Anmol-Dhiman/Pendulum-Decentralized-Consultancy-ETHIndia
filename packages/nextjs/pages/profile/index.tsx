@@ -8,14 +8,30 @@ import { useDeployedContractInfo, useScaffoldContractRead } from "~~/hooks/scaff
 import type { NextPage } from "next";
 import Link from "next/link";
 import { GrAdd } from "react-icons/gr";
+import { useNetwork } from 'wagmi'
+
+import { useContractRead } from 'wagmi'
 
 import OrbABI from "../../../foundry/out/PendulumOrb.sol/PendulumOrb.json"
 
 const Profile: NextPage = () => {
+  type OrbWithExpert = {
+    expertDetails: {
+      name: string
+      desc: string
+      image: string
+    }
+    orbsDetails: any
+  }
 
 
   const account = useAccount();
+  const { chain, chains } = useNetwork()
+
+
   const [orbsCreated, setOrbsCreated] = useState<any>([])
+  const [orbsOnwed, setOrbsOwned] = useState<any>([])
+  const [userOwnedOrbDetails, setUserOrbOwnedDetails] = useState<any>([])
   const [orbAddress, setOrbAddress] = useState([])
   // const [isExpert, setIsExpert] = useState(true);
   const { data: pendulumContract } = useDeployedContractInfo("PendulumFactory");
@@ -24,8 +40,10 @@ const Profile: NextPage = () => {
     contractName: "PendulumFactory",
     functionName: "isExpert",
     args: [account.address],
-    account: account.address
+
+
   });
+
 
 
   useEffect(() => {
@@ -63,6 +81,70 @@ const Profile: NextPage = () => {
     }
     getOrbsCreated()
   }, [isExpert])
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (account.address === undefined) return
+        const userOwnedOrbs = await readContract({
+          address: pendulumContract?.address!,
+          abi: pendulumContract?.abi!,
+          functionName: 'orbsOwnedByUser',
+          args: [account.address],
+          account: account.address,
+          chainId: chain?.id
+        })
+        const _orbWithExpert: OrbWithExpert[] = []
+        const _orbDetails: any[] = []
+
+        for (var i = 0; i < userOwnedOrbs.length; i++) {
+          const orbData = await readContract({
+            address: userOwnedOrbs[i],
+            abi: OrbABI.abi,
+            functionName: 'getOrbDetails',
+            account: account.address,
+            chainId: chain?.id
+          })
+          _orbDetails.push(orbData)
+          const expertDetails = await readContract({
+            address: pendulumContract?.address!,
+            abi: pendulumContract?.abi!,
+            functionName: "getExpertProfile",
+            args: [orbData.createBy],
+            account: account.address,
+            chainId: chain?.id
+          })
+          const url = "https://nftstorage.link/ipfs/" + expertDetails.detailsCID + "/metadata.json"
+          await fetch(url).then(response => response.json())
+            .then((jsonData) => {
+              // console.log(JSON.stringify(jsonData))
+              // setName(jsonData.name)
+              // setTwitter(jsonData.description)
+              // setFileURL(jsonData.image.replace("ipfs://", "https://nftstorage.link/ipfs/"))
+              const _data: OrbWithExpert = {
+                expertDetails: {
+                  name: jsonData.name,
+                  desc: jsonData.description,
+                  image: jsonData.image.replace("ipfs://", "https://nftstorage.link/ipfs/")
+                },
+                orbsDetails: orbData
+              }
+              _orbWithExpert.push(_data)
+            })
+            .catch((error) => {
+              // handle your errors here
+              console.error(error)
+
+            })
+
+        }
+        setUserOrbOwnedDetails(_orbDetails)
+        setOrbsOwned(_orbWithExpert)
+      } catch (e) { console.log(e) }
+    }
+    fetchData()
+  }, [])
 
 
 
@@ -118,12 +200,12 @@ const Profile: NextPage = () => {
                           <p>Created At</p>
                           <p>{unixToDateString(value.createdAt)}</p>
                         </div>
-                        <div className="flex flex-row justify-between  " >
+                        {/* <div className="flex flex-row justify-between  " >
                           <p>Auction At</p>
                           <p>{unixToDateString(Number(value.auctionTime))}</p>
-                        </div>
+                        </div> */}
                         <div className="flex flex-row justify-between  " >
-                          <p>Base Price</p>
+                          <p>Selling Price</p>
                           <p>{Number(value.priceInUSD)}</p>
                         </div>
                         <div className="flex flex-row justify-between  " >
@@ -179,6 +261,8 @@ const Profile: NextPage = () => {
     )
   }
 
+  console.log(isExpert)
+
   return (
     <div className="container ">
 
@@ -210,7 +294,7 @@ const Profile: NextPage = () => {
       }
 
 
-      <OrbList heading="ORBs Owned" orbList={[]} />
+      <OrbList heading="ORBs Owned" orbList={userOwnedOrbDetails} />
       <OrbList heading="ORBs Created" orbList={orbsCreated} />
 
 

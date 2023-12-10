@@ -11,7 +11,7 @@ contract PendulumOrb {
     uint32 immutable resellingEndExp = 5184000;
     address public createBy;
     address public owner;
-    uint256 public auctionTime;
+    // uint256 public auctionTime;
     uint256 public priceInUSD;
     uint256 public coolDownTime;
     uint256 public resellingPrice;
@@ -34,7 +34,7 @@ contract PendulumOrb {
 
     struct OrbDetails {
         address createBy;
-        uint256 auctionTime;
+        // uint256 auctionTime;
         uint256 priceInUSD;
         uint256 coolDownTime;
         uint32 createdAt;
@@ -58,7 +58,7 @@ contract PendulumOrb {
     }
 
     function _init_(
-        uint256 _auctionTime,
+        // uint256 _auctionTime,
         uint256 _startingPriceInUSD,
         uint256 _coolDownTime,
         uint256 _taxRate,
@@ -67,29 +67,29 @@ contract PendulumOrb {
         require(msg.sender == factoryContract, "invalid access");
         createBy = _createdBy;
         owner = address(0);
-        auctionTime = _auctionTime;
+        // auctionTime = _auctionTime;
         priceInUSD = _startingPriceInUSD;
         coolDownTime = _coolDownTime;
         taxRate = _taxRate;
         lastQuestionTime = uint32(block.timestamp);
         createdAt = uint32(block.timestamp);
-        uint256 diff = _auctionTime - block.timestamp;
+        // uint256 diff = _auctionTime - block.timestamp;
         for (uint32 i = 1; i < 13; i++) {
             taxPaymentTime[i - 1] =
                 (i * taxPaymentCycleTime) +
-                uint32(block.timestamp) +
-                uint32(diff);
+                uint32(block.timestamp);
+            // uint32(diff);
         }
     }
 
     function updateOrb(
-        uint256 _auctionTime,
+        // uint256 _auctionTime,
         uint256 _priceInUSD,
         uint256 _coolDownTime,
         uint256 _taxRate
     ) external {
         require(msg.sender == createBy, "you cannot access this function");
-        auctionTime = _auctionTime;
+        // auctionTime = _auctionTime;
         priceInUSD = _priceInUSD;
         coolDownTime = _coolDownTime;
         taxRate = _taxRate;
@@ -97,10 +97,10 @@ contract PendulumOrb {
 
     function buyOrb(uint256 _resellingPrice) external payable {
         require(isAlive, "orb is dead");
-        require(
-            block.timestamp > auctionTime,
-            "you cannot buy orb before auction time"
-        );
+        // require(
+        //     block.timestamp > auctionTime,
+        //     "you cannot buy orb before auction time"
+        // );
 
         // chainlink data feed for price of token is used here
         uint256 totalAmountPaid = getAmountPaid();
@@ -185,7 +185,7 @@ contract PendulumOrb {
     function getOrbDetails() external view returns (OrbDetails memory) {
         OrbDetails memory _orbDetails = OrbDetails(
             createBy,
-            auctionTime,
+            // auctionTime,
             priceInUSD,
             coolDownTime,
             createdAt,

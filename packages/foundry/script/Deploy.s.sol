@@ -8,6 +8,9 @@ import {PendulumFactory} from "../contracts/PendulumFactory.sol";
 
 contract DeployScript is ScaffoldETHDeploy {
     error InvalidPrivateKey(string);
+    address polygonMumbai = 0xd0D5e3DB44DE05E9F294BB0a3bEEaF030DE24Ada;
+    address scrollSepolia = 0x59F1ec1f10bD7eD9B938431086bC1D9e233ECf41;
+    address baseGeroli = 0xcD2A119bD1F7DF95d706DE6F2057fDD45A0503E2;
 
     function run() external {
         uint256 deployerPrivateKey = vm.envUint("DEPLOYER_PRIVATE_KEY");
@@ -18,9 +21,7 @@ contract DeployScript is ScaffoldETHDeploy {
         }
         vm.startBroadcast(deployerPrivateKey);
         // matci to usd chainlink contract
-        PendulumFactory pendulum = new PendulumFactory(
-            0xd0D5e3DB44DE05E9F294BB0a3bEEaF030DE24Ada
-        );
+        PendulumFactory pendulum = new PendulumFactory(baseGeroli);
         console.logString(
             string.concat(
                 "PendulumFactory contract deployed at: ",

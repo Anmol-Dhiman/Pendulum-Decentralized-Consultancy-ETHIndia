@@ -9,7 +9,7 @@ const OrbUpdate: NextPage = () => {
     const router = useRouter()
     const orbData = router.query.orbData as string[]
     const contractAddress = orbData[0]
-    const [auctionTime, setAuctionTime] = useState(unixToDateString(Number(orbData[1])))
+    // const [auctionTime, setAuctionTime] = useState(unixToDateString(Number(orbData[1])))
     const [startingBidUSD, setStartingBid] = useState(orbData[2])
     const [coolDownTime, setCoolDownTime] = useState(String(Number(orbData[3]) / (60 * 60 * 24)))
     const [taxRate, setTaxRate] = useState(orbData[4])
@@ -27,7 +27,7 @@ const OrbUpdate: NextPage = () => {
             abi: OrbABI.abi,
             functionName: 'updateOrb',
             args: [
-                BigInt(stringToUnixTime(auctionTime)),
+                // BigInt(stringToUnixTime(auctionTime)),
                 BigInt(startingBidUSD),
                 BigInt(Number(coolDownTime) * 24 * 60 * 60),
                 BigInt(taxRate)
@@ -61,20 +61,20 @@ const OrbUpdate: NextPage = () => {
 
     // ])
 
-    function unixToDateString(unixTime: number): string {
-        if (typeof unixTime !== 'number') {
-            throw new Error('Invalid input: Unix timestamp must be a number');
-        }
-        const date = new Date(unixTime * 1000);
-        return date.toISOString().split('T')[0]; // Extract date portion from ISO string
-    }
+    // function unixToDateString(unixTime: number): string {
+    //     if (typeof unixTime !== 'number') {
+    //         return ""
+    //     }
+    //     const date = new Date(unixTime * 1000);
+    //     return date.toLocaleDateString  // Extract date portion from ISO string
+    // }
 
     const [loading, setLoading] = useState(false)
 
     return (
         <>
             <div className="flex flex-col items-center mt-12  " >
-                <div>
+                {/* <div>
                     <p className="info-header font-bold " >Auction Time</p>
                     <input
                         type="date"
@@ -83,9 +83,10 @@ const OrbUpdate: NextPage = () => {
                         className='input-box '
                     />
 
-                </div>
+                </div> */}
+                <p className="font-bold text-2xl" >UPDATE YOUR ORB</p>
                 <div>
-                    <p className="info-header font-bold " >Starting Bid in USD</p>
+                    <p className="info-header font-bold " >Price in USD</p>
                     <input
                         type="number"
                         value={startingBidUSD}

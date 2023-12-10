@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   80001: {
     PendulumFactory: {
-      address: "0x8f917c7162154f7EE0a69B0D8eA03A1815d8F4a5",
+      address: "0x5c292f307cfa8E27dD7db0F046cbaf8b61248211",
       abi: [
         {
           inputs: [
@@ -35,11 +35,6 @@ const deployedContracts = {
         },
         {
           inputs: [
-            {
-              internalType: "uint256",
-              name: "_auctionTime",
-              type: "uint256",
-            },
             {
               internalType: "uint256",
               name: "_startingPriceInUSD",
@@ -155,6 +150,577 @@ const deployedContracts = {
               internalType: "struct PendulumFactory.ExpertProfile",
               name: "",
               type: "tuple",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getUserOwnedOrbs",
+          outputs: [
+            {
+              internalType: "address[]",
+              name: "",
+              type: "address[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "isExpert",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "isOrb",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "orbs",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "orbsOwnedByUser",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_orb",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_owner",
+              type: "address",
+            },
+          ],
+          name: "updateOrbsOwned",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "_profileDetailsCID",
+              type: "string",
+            },
+          ],
+          name: "updateProfile",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {},
+    },
+  },
+  84531: {
+    PendulumFactory: {
+      address: "0x0F2fd98AC8C88Ac8fb5d4EE43ADd08b6Da509860",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_dataFeed",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [],
+          name: "chainlinkDataFeed",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_startingPriceInUSD",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_coolDownTime",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_taxRate",
+              type: "uint256",
+            },
+          ],
+          name: "createOrb",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "_profileDetailsCID",
+              type: "string",
+            },
+          ],
+          name: "createProfile",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "experts",
+          outputs: [
+            {
+              internalType: "string",
+              name: "detailsCID",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "expertRating",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getAliveUpcomingOrbs",
+          outputs: [
+            {
+              internalType: "address[]",
+              name: "",
+              type: "address[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getExpertOwnedOrbs",
+          outputs: [
+            {
+              internalType: "address[]",
+              name: "",
+              type: "address[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_expert",
+              type: "address",
+            },
+          ],
+          name: "getExpertProfile",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "string",
+                  name: "detailsCID",
+                  type: "string",
+                },
+                {
+                  internalType: "uint256",
+                  name: "expertRating",
+                  type: "uint256",
+                },
+                {
+                  internalType: "address[]",
+                  name: "orbsOwned",
+                  type: "address[]",
+                },
+              ],
+              internalType: "struct PendulumFactory.ExpertProfile",
+              name: "",
+              type: "tuple",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getUserOwnedOrbs",
+          outputs: [
+            {
+              internalType: "address[]",
+              name: "",
+              type: "address[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "isExpert",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "isOrb",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "orbs",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "orbsOwnedByUser",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_orb",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_owner",
+              type: "address",
+            },
+          ],
+          name: "updateOrbsOwned",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "_profileDetailsCID",
+              type: "string",
+            },
+          ],
+          name: "updateProfile",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {},
+    },
+  },
+  534351: {
+    PendulumFactory: {
+      address: "0x0500136187518B5d9b2fBffF34693D8E60bA5776",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_dataFeed",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [],
+          name: "chainlinkDataFeed",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_startingPriceInUSD",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_coolDownTime",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_taxRate",
+              type: "uint256",
+            },
+          ],
+          name: "createOrb",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "_profileDetailsCID",
+              type: "string",
+            },
+          ],
+          name: "createProfile",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "experts",
+          outputs: [
+            {
+              internalType: "string",
+              name: "detailsCID",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "expertRating",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getAliveUpcomingOrbs",
+          outputs: [
+            {
+              internalType: "address[]",
+              name: "",
+              type: "address[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getExpertOwnedOrbs",
+          outputs: [
+            {
+              internalType: "address[]",
+              name: "",
+              type: "address[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_expert",
+              type: "address",
+            },
+          ],
+          name: "getExpertProfile",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "string",
+                  name: "detailsCID",
+                  type: "string",
+                },
+                {
+                  internalType: "uint256",
+                  name: "expertRating",
+                  type: "uint256",
+                },
+                {
+                  internalType: "address[]",
+                  name: "orbsOwned",
+                  type: "address[]",
+                },
+              ],
+              internalType: "struct PendulumFactory.ExpertProfile",
+              name: "",
+              type: "tuple",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getUserOwnedOrbs",
+          outputs: [
+            {
+              internalType: "address[]",
+              name: "",
+              type: "address[]",
             },
           ],
           stateMutability: "view",

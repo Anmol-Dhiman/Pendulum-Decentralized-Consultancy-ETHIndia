@@ -52,20 +52,21 @@ contract PendulumFactory {
 
     // function createOrb
     function createOrb(
-        uint256 _auctionTime,
+        // uint256 _auctionTime,
         uint256 _startingPriceInUSD,
         uint256 _coolDownTime,
         uint256 _taxRate
     ) external onlyExpert {
         PendulumOrb _newOrb = new PendulumOrb(address(this), chainlinkDataFeed);
         _newOrb._init_(
-            _auctionTime,
+            // _auctionTime,
             _startingPriceInUSD,
             _coolDownTime,
             _taxRate,
             msg.sender
         );
         isOrb[address(_newOrb)] = true;
+        orbs.push(address(_newOrb));
         experts[msg.sender].orbsOwned.push(address(_newOrb));
     }
 
@@ -84,7 +85,8 @@ contract PendulumFactory {
         uint256 length;
         for (uint256 i = 0; i < orbs.length; i++) {
             PendulumOrb _orb = PendulumOrb(orbs[i]);
-            if (_orb.isAlive() && _orb.auctionTime() > block.timestamp) {
+            // && _orb.auctionTime() > block.timestamp
+            if (_orb.isAlive()) {
                 length++;
             }
         }
@@ -92,7 +94,8 @@ contract PendulumFactory {
         uint256 count;
         for (uint256 i = 0; i < orbs.length; i++) {
             PendulumOrb _orb = PendulumOrb(orbs[i]);
-            if (_orb.isAlive() && _orb.auctionTime() > block.timestamp) {
+            // && _orb.auctionTime() > block.timestamp
+            if (_orb.isAlive()) {
                 upcomingOrbs[count] = orbs[i];
                 count++;
             }
@@ -102,5 +105,9 @@ contract PendulumFactory {
 
     function getExpertOwnedOrbs() external view returns (address[] memory) {
         return experts[msg.sender].orbsOwned;
+    }
+
+    function getUserOwnedOrbs() external view returns (address[] memory) {
+        return orbsOwnedByUser[msg.sender];
     }
 }

@@ -18,7 +18,7 @@ const CreateOrb: NextPage = () => {
     }
     const { data: pendulumFactory } = useDeployedContractInfo("PendulumFactory");
 
-
+    console.log(stringToUnixTime(auctionTime))
 
     const [loading, setLoading] = useState(false)
     // const { writeAsync: CreateOrbFunc } = useScaffoldContractWrite({
@@ -28,7 +28,7 @@ const CreateOrb: NextPage = () => {
 
     // });
     const createOrb = async () => {
-        if (auctionTime === "" || startingBidUSD === "" || coolDownTime === "" || taxRate === "") return
+        if (startingBidUSD === "" || coolDownTime === "" || taxRate === "") return
         try {
             setLoading(true)
             console.log("sending")
@@ -38,7 +38,7 @@ const CreateOrb: NextPage = () => {
                 abi: pendulumFactory?.abi!,
                 functionName: 'createOrb',
                 args: [
-                    BigInt(stringToUnixTime(auctionTime)),
+                    // BigInt(stringToUnixTime(auctionTime)),
                     BigInt(startingBidUSD),
                     BigInt(Number(coolDownTime) * 24 * 60 * 60),
                     BigInt(taxRate)
@@ -63,18 +63,19 @@ const CreateOrb: NextPage = () => {
     return (
         <>
             <div className="flex flex-col items-center mt-12  " >
-                <div>
+                {/* <div>
                     <p className="info-header font-bold " >Auction Time</p>
                     <input
-                        type="date"
+                        type="datetime-local"
                         value={auctionTime}
                         onChange={(e) => setAuctionTime(e.target.value)}
                         className='input-box '
                     />
 
-                </div>
+                </div> */}
+                <p className=" font-bold text-2xl " >CREATE NEW ORB</p>
                 <div>
-                    <p className="info-header font-bold " >Starting Bid in USD</p>
+                    <p className="info-header font-bold " >Price in USD</p>
                     <input
                         type="number"
                         value={startingBidUSD}

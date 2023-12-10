@@ -38,6 +38,7 @@
   },
   "packageManager": "yarn@3.2.3",
   "dependencies": {
+    "coingecko-api-v3": "^0.0.29",
     "react-icons": "^4.12.0"
   }
 }
