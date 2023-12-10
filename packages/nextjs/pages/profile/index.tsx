@@ -61,7 +61,7 @@ const Profile: NextPage = () => {
         console.log(JSON.stringify(createdOrbsArray))
         setOrbAddress(createdOrbsArray)
         const _orbDetails: any[] = []
-        for (var i = 0; i < createdOrbsArray.length; i++) {
+        for (let i = 0; i < createdOrbsArray.length; i++) {
           const orbData = await readContract({
             address: createdOrbsArray[i],
             abi: OrbABI.abi,
@@ -98,7 +98,7 @@ const Profile: NextPage = () => {
         const _orbWithExpert: OrbWithExpert[] = []
         const _orbDetails: any[] = []
 
-        for (var i = 0; i < userOwnedOrbs.length; i++) {
+        for (let i = 0; i < userOwnedOrbs.length; i++) {
           const orbData = await readContract({
             address: userOwnedOrbs[i],
             abi: OrbABI.abi,

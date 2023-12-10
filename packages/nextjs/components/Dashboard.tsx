@@ -44,7 +44,7 @@ const Dashboard = () => {
       try {
         if (orbsArray === undefined) return
         const _orbWithExpert: OrbWithExpert[] = []
-        for (var i = 0; i < orbsArray.length; i++) {
+        for (let i = 0; i < orbsArray.length; i++) {
           const orbData = await readContract({
             address: orbsArray[i],
             abi: OrbABI.abi,
