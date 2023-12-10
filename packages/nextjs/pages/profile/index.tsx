@@ -32,7 +32,7 @@ const Profile: NextPage = () => {
   const [orbsCreated, setOrbsCreated] = useState<any>([])
   const [orbsOnwed, setOrbsOwned] = useState<any>([])
   const [userOwnedOrbDetails, setUserOrbOwnedDetails] = useState<any>([])
-  const [orbAddress, setOrbAddress] = useState([])
+  const [orbAddress, setOrbAddress] = useState<any>([])
   // const [isExpert, setIsExpert] = useState(true);
   const { data: pendulumContract } = useDeployedContractInfo("PendulumFactory");
 
@@ -84,66 +84,66 @@ const Profile: NextPage = () => {
 
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (account.address === undefined) return
-        const userOwnedOrbs = await readContract({
-          address: pendulumContract?.address!,
-          abi: pendulumContract?.abi!,
-          functionName: 'orbsOwnedByUser',
-          args: [account.address],
-          account: account.address,
-          chainId: chain?.id
-        })
-        const _orbWithExpert: OrbWithExpert[] = []
-        const _orbDetails: any[] = []
+    // const fetchData = async () => {
+    //   try {
+    //     if (account.address === undefined) return
+    //     const userOwnedOrbs = await readContract({
+    //       address: pendulumContract?.address!,
+    //       abi: pendulumContract?.abi!,
+    //       functionName: 'orbsOwnedByUser',
+    //       args: [account.address],
+    //       account: account.address,
+    //       chainId: chain?.id
+    //     })
+    //     const _orbWithExpert: OrbWithExpert[] = []
+    //     const _orbDetails: any[] = []
 
-        for (let i = 0; i < userOwnedOrbs.length; i++) {
-          const orbData = await readContract({
-            address: userOwnedOrbs[i],
-            abi: OrbABI.abi,
-            functionName: 'getOrbDetails',
-            account: account.address,
-            chainId: chain?.id
-          })
-          _orbDetails.push(orbData)
-          const expertDetails = await readContract({
-            address: pendulumContract?.address!,
-            abi: pendulumContract?.abi!,
-            functionName: "getExpertProfile",
-            args: [orbData.createBy],
-            account: account.address,
-            chainId: chain?.id
-          })
-          const url = "https://nftstorage.link/ipfs/" + expertDetails.detailsCID + "/metadata.json"
-          await fetch(url).then(response => response.json())
-            .then((jsonData) => {
-              // console.log(JSON.stringify(jsonData))
-              // setName(jsonData.name)
-              // setTwitter(jsonData.description)
-              // setFileURL(jsonData.image.replace("ipfs://", "https://nftstorage.link/ipfs/"))
-              const _data: OrbWithExpert = {
-                expertDetails: {
-                  name: jsonData.name,
-                  desc: jsonData.description,
-                  image: jsonData.image.replace("ipfs://", "https://nftstorage.link/ipfs/")
-                },
-                orbsDetails: orbData
-              }
-              _orbWithExpert.push(_data)
-            })
-            .catch((error) => {
-              // handle your errors here
-              console.error(error)
+    //     for (let i = 0; i < userOwnedOrbs.length; i++) {
+    //       const orbData = await readContract({
+    //         address: userOwnedOrbs[i],
+    //         abi: OrbABI.abi,
+    //         functionName: 'getOrbDetails',
+    //         account: account.address,
+    //         chainId: chain?.id
+    //       })
+    //       _orbDetails.push(orbData)
+    //       const expertDetails = await readContract({
+    //         address: pendulumContract?.address!,
+    //         abi: pendulumContract?.abi!,
+    //         functionName: "getExpertProfile",
+    //         args: [orbData.createBy],
+    //         account: account.address,
+    //         chainId: chain?.id
+    //       })
+    //       const url = "https://nftstorage.link/ipfs/" + expertDetails.detailsCID + "/metadata.json"
+    //       await fetch(url).then(response => response.json())
+    //         .then((jsonData) => {
+    //           // console.log(JSON.stringify(jsonData))
+    //           // setName(jsonData.name)
+    //           // setTwitter(jsonData.description)
+    //           // setFileURL(jsonData.image.replace("ipfs://", "https://nftstorage.link/ipfs/"))
+    //           const _data: OrbWithExpert = {
+    //             expertDetails: {
+    //               name: jsonData.name,
+    //               desc: jsonData.description,
+    //               image: jsonData.image.replace("ipfs://", "https://nftstorage.link/ipfs/")
+    //             },
+    //             orbsDetails: orbData
+    //           }
+    //           _orbWithExpert.push(_data)
+    //         })
+    //         .catch((error) => {
+    //           // handle your errors here
+    //           console.error(error)
 
-            })
+    //         })
 
-        }
-        setUserOrbOwnedDetails(_orbDetails)
-        setOrbsOwned(_orbWithExpert)
-      } catch (e) { console.log(e) }
-    }
-    fetchData()
+    //     }
+    //     setUserOrbOwnedDetails(_orbDetails)
+    //     setOrbsOwned(_orbWithExpert)
+    //   } catch (e) { console.log(e) }
+    // }
+    // fetchData()
   }, [])
 
 

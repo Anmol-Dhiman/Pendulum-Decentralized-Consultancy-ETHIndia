@@ -8,7 +8,7 @@ const OrbForm = () => {
     transactionRate: "",
   });
 
-  const handleChange = e => {
+  const handleChange = (e: any) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -16,7 +16,7 @@ const OrbForm = () => {
     });
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
 
     console.log("Form Data:", formData);

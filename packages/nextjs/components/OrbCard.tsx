@@ -35,7 +35,7 @@ const OrbCard = ({ orbAddress }: { orbAddress: string }) => {
   const { chain, chains } = useNetwork()
 
 
-  const [resellingPrice, setResellingPrice] = useState()
+  const [resellingPrice, setResellingPrice] = useState(0)
   const [loading, setLoading] = useState(false)
   const [orbTotalDetails, setOrbDetails] = useState<OrbWithExpert>()
   const [timeForAuction, setTimeForAuction] = useState(0)
@@ -48,12 +48,12 @@ const OrbCard = ({ orbAddress }: { orbAddress: string }) => {
     return date.toLocaleString() // Extract date portion from ISO string
   }
   const [dataFetch, setDataFetch] = useState(false)
-  const [price, setPrice] = useState()
+  const [price, setPrice] = useState(0)
 
   useEffect(() => {
     const getData = async () => {
       try {
-        const orbData = await readContract({
+        const orbData: any = await readContract({
           address: orbAddress,
           abi: OrbABI.abi,
           functionName: 'getOrbDetails',
@@ -146,15 +146,19 @@ const OrbCard = ({ orbAddress }: { orbAddress: string }) => {
 
   useEffect(() => {
     const getData = async () => {
-
-      const data = await getTokenData(PriceIds.get(chain?.id), "USD")
+      const id = chain?.id
+      if (id === undefined) return
+      const name = PriceIds.get(id)
+      if (name === undefined) return
+      const data = await getTokenData(name, "USD")
       console.log(data)
+      if (data === undefined) return
       setPrice(data?.usd)
     }
     getData()
   }, [])
 
-  const placeBidFunction = () => { };
+  // const placeBidFunction = () => { };
   return (
     <div className="p-10 bg-white shadow-lg rounded-lg">
       <div className="flex items-center justify-start gap-10">
@@ -218,7 +222,7 @@ const OrbCard = ({ orbAddress }: { orbAddress: string }) => {
           <input
             type="number"
             value={resellingPrice}
-            onChange={(e) => setResellingPrice(e.target.value)}
+            onChange={(e) => setResellingPrice(Number(e.target.value))}
             className='input-box '
             placeholder="Set Reselling Price"
 

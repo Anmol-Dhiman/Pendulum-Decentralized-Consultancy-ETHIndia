@@ -45,7 +45,7 @@ const Dashboard = () => {
         if (orbsArray === undefined) return
         const _orbWithExpert: OrbWithExpert[] = []
         for (let i = 0; i < orbsArray.length; i++) {
-          const orbData = await readContract({
+          const orbData: any = await readContract({
             address: orbsArray[i],
             abi: OrbABI.abi,
             functionName: 'getOrbDetails',
@@ -158,11 +158,13 @@ const Dashboard = () => {
                     </div>
 
                     <div className="border-2 border-blue-500 rounded-xl hover:bg-blue-500 text-white">
-                      <Link href={`/orbs/${orbsArray[index]}`} className="text-blue-500 text-lg  w-full">
-                        <div className="p-4 hover:text-white">
-                          <FaArrowRight />
-                        </div>
-                      </Link>
+                      {
+                        orbsArray !== undefined && <Link href={`/orbs/${orbsArray[index]}`} className="text-blue-500 text-lg  w-full">
+                          <div className="p-4 hover:text-white">
+                            <FaArrowRight />
+                          </div>
+                        </Link>
+                      }
                     </div>
                   </div>
                 </div>

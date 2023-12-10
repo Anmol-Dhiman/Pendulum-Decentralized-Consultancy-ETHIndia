@@ -1,13 +1,30 @@
 {
   "parser": "@typescript-eslint/parser",
-  "extends": ["next/core-web-vitals", "plugin:prettier/recommended", "plugin:@typescript-eslint/recommended"],
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
   "rules": {
-    "@typescript-eslint/no-unused-vars": ["off"],
-    "@typescript-eslint/no-explicit-any": ["off"],
-    "@typescript-eslint/no-non-null-asserted-optional-chain": ["off"],
-    "@typescript-eslint/ban-ts-comment": ["off"],
-    "@typescript-eslint/no-empty-interface": ["off"],
-    "react-hooks/rules-of-hooks": ["off"],
+    "@typescript-eslint/no-unused-vars": [
+      "off"
+    ],
+    "@typescript-eslint/no-explicit-any": [
+      "off"
+    ],
+    "react/no-unescaped-entities": "off",
+    "@typescript-eslint/no-non-null-asserted-optional-chain": [
+      "off"
+    ],
+    "@typescript-eslint/ban-ts-comment": [
+      "off"
+    ],
+    "@typescript-eslint/no-empty-interface": [
+      "off"
+    ],
+    "react-hooks/rules-of-hooks": [
+      "off"
+    ],
     "@typescript-eslint/ban-types": [
       "error",
       {
@@ -23,6 +40,8 @@
         "endOfLine": "auto"
       }
     ],
-    "@next/next/no-page-custom-font": ["off"]
+    "@next/next/no-page-custom-font": [
+      "off"
+    ]
   }
 }

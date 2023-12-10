@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
-const Timer = ({ callQueuedTime }) => {
+const Timer = ({ callQueuedTime }: { callQueuedTime: any }) => {
   const [time, setTime] = useState(() => new Date().getHours());
   useEffect(() => {
     const queuedTime = new Date(callQueuedTime).getHours();
     const intervalId = setInterval(function () {
       setTime(new Date().getTime() - queuedTime);
     }, 1000);
-    return ()=>{
+    return () => {
       clearInterval(intervalId);
     }
   }, [callQueuedTime]);
