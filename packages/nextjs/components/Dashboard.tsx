@@ -5,10 +5,10 @@ import { FaArrowRight, FaTwitter } from "react-icons/fa";
 import { CiTwitter } from 'react-icons/ci'
 import { useScaffoldContractRead, useDeployedContractInfo } from "~~/hooks/scaffold-eth";
 import { useAccount } from "wagmi";
-import OrbABI from "../../foundry/out/PendulumOrb.sol/PendulumOrb.json";
+import OrbABI from "~~/utils/abi/OrbAbi.json";
 import { readContract } from '@wagmi/core'
 import { useRouter } from "next/router";
-
+ 
 
 type OrbWithExpert = {
   expertDetails: {
